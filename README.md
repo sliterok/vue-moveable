@@ -90,18 +90,20 @@ $ npm i vue-moveable
 
 ```vue
 <template>
-  <Moveable
-    class="moveable"
-    v-bind="moveable"
-    @drag="handleDrag"
-    @resize="handleResize"
-    @scale="handleScale"
-    @rotate="handleRotate"
-    @warp="handleWarp"
-    @pinch="handlePinch"
-  >
-    <span>Vue Moveable</span>
-  </Moveable>
+ <div ref="container">
+    <Moveable
+        class="moveable"
+        v-bind="moveable"
+        @drag="handleDrag"
+        @resize="handleResize"
+        @scale="handleScale"
+        @rotate="handleRotate"
+        @warp="handleWarp"
+        @pinch="handlePinch"
+      >
+      <span>Vue Moveable</span>
+    </Moveable>
+  </div>
 </template>
 <script>
 import Moveable from 'vue-moveable';
@@ -111,20 +113,23 @@ export default {
   components: {
     Moveable,
   },
-  data: () => ({
-    moveable: {
-      draggable: true,
-      throttleDrag: 0,
-      resizable: false,
-      throttleResize: 1,
-      keepRatio: true,
-      scalable: true,
-      throttleScale: 0,
-      rotatable: true,
-      throttleRotate: 0,
-      pinchable: true, // ["draggable", "resizable", "scalable", "rotatable"]
-    }
-  }),
+  data: function() {
+    return {
+        moveable: {
+          draggable: true,
+          throttleDrag: 0,
+          resizable: false,
+          throttleResize: 1,
+          keepRatio: true,
+          scalable: true,
+          throttleScale: 0,
+          rotatable: true,
+          throttleRotate: 0,
+          pinchable: true, // ["draggable", "resizable", "scalable", "rotatable"]
+          parent: this.$refs.container
+        }
+      }
+  },
   methods: {
     handleDrag({ target, left, top }) {
       console.log('onDrag left, top', left, top);
